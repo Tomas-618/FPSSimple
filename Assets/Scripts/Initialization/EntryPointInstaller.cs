@@ -21,6 +21,8 @@ public class EntryPointInstaller : MonoInstaller
         BindPlayerPresenterFactory();
         BindPlayerViewFactory();
         BindPlayerControllerFactory();
+
+        Container.Bind<PlayerFactory>().AsSingle();
     }
 
     private void BindPlayerModelFactory() =>
