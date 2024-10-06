@@ -1,6 +1,6 @@
-﻿using Services;
-using System;
+﻿using System;
 using UnityEngine;
+using Services;
 
 namespace Calculators
 {
@@ -12,15 +12,14 @@ namespace Calculators
             _detectionService = detectionService ?? throw new ArgumentNullException(nameof(detectionService));
 
         public Vector3 GetVelocity(Transform transform, Vector3 legsPosition, Vector3 inputDirection,
-            float speed, float distance, LayerMask layerMask)
+            float speed, float checkerDistance, LayerMask layerMasks)
         {
             Vector3 direction = transform.TransformDirection(inputDirection);
 
             Debug.DrawRay(transform.position, direction, Color.blue);
 
             return Time.deltaTime * speed *
-                _detectionService.GetDirectionAlongSurface(legsPosition,
-                direction, distance, layerMask);
+                _detectionService.GetDirectionAlongSurface(legsPosition, direction, checkerDistance, layerMasks);
         }
     }
 }

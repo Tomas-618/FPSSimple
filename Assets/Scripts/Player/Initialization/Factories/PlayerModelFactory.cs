@@ -1,17 +1,22 @@
 ﻿using System;
-using PlayerConfigs;
+using Providers;
 
-public class PlayerModelFactory
+namespace Factories
 {
-    private readonly PlayerModelConfig _modelConfig;
-
-    public PlayerModelFactory(PlayerModelConfig modelConfig) =>
-        _modelConfig = modelConfig != null ? modelConfig : throw new ArgumentNullException(nameof(modelConfig));
-
-    public PlayerModel Create()
+    public class PlayerModelFactory
     {
-        return new PlayerModel(_modelConfig.WalkingSpeed, _modelConfig.RunningSpeed,
-            _modelConfig.SpeedChangeRate, _modelConfig.Sensitivity, _modelConfig.MinRotationAngle,
-            _modelConfig.MaxRotationAngle, _modelConfig.Strength, _modelConfig.JumpHeight);
+        private readonly PlayerModelConfigProvider _modelConfigProvider;
+
+        public PlayerModelFactory(PlayerModelConfigProvider modelConfigProvider) =>
+            _modelConfigProvider = modelConfigProvider ?? throw new ArgumentNullException(nameof(modelConfigProvider));
+
+        public PlayerModel Create()
+        {
+            return new PlayerModel(_modelConfigProvider.Config.WalkingSpeed, _modelConfigProvider.Config.RunningSpeed,
+                _modelConfigProvider.Config.SpeedChangeRate, _modelConfigProvider.Config.Sensitivity,
+                _modelConfigProvider.Config.MinRotationAngle,
+                _modelConfigProvider.Config.MaxRotationAngle, _modelConfigProvider.Config.Strength,
+                _modelConfigProvider.Config.JumpHeight);
+        }
     }
 }

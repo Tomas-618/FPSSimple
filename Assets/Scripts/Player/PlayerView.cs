@@ -1,17 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerView : MonoBehaviour
 {
-    [SerializeField, Min(0)] private float _radius;
-
-    [SerializeField, Min(0)] private float _distance;
-
+    private PlayerPresenter _presenter;
     private CharacterController _characterController;
-
-    [field: SerializeField] public LayerMask GroundLayer { get; private set; }
-
-    [field: SerializeField] public LayerMask RoofLayer { get; private set; }
 
     [field: SerializeField] public Transform CameraTarget { get; private set; }
 
@@ -21,13 +15,13 @@ public class PlayerView : MonoBehaviour
 
     public Transform Transform { get; private set; }
 
-    public float Radius => _radius;
+    private void OnControllerColliderHit(ControllerColliderHit hit) =>
+        _presenter.OnColliderHit(hit);
 
-    public float Distance => _distance;
-
-    public void Init()
+    public void Init(PlayerPresenter presenter)
     {
         Transform = transform;
+        _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
         _characterController = GetComponent<CharacterController>();
     }
 

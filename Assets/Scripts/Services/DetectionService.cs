@@ -9,10 +9,10 @@ namespace Services
         public DetectionService() =>
             _hits = new RaycastHit[1];
 
-        public bool Check(Vector3 position, float radius, LayerMask layerMask) =>
-            Physics.CheckSphere(position, radius, layerMask, QueryTriggerInteraction.Ignore);
+        public bool Check(Vector3 position, float radius, LayerMask layerMasks) =>
+            Physics.CheckSphere(position, radius, layerMasks, QueryTriggerInteraction.Ignore);
 
-        public Vector3 GetDirectionAlongSurface(Vector3 position, Vector3 direction, float distance, LayerMask layerMask)
+        public Vector3 GetDirectionAlongSurface(Vector3 position, Vector3 direction, float distance, LayerMask layerMasks)
         {
             const float Epsilon = 0.01f;
 
@@ -23,7 +23,7 @@ namespace Services
 
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.Ignore;
 
-            int count = Physics.RaycastNonAlloc(ray, _hits, distance, layerMask, queryTriggerInteraction);
+            int count = Physics.RaycastNonAlloc(ray, _hits, distance, layerMasks, queryTriggerInteraction);
             
             if (count <= 0)
                 return direction;
@@ -38,7 +38,7 @@ namespace Services
             Vector3 startPosition = _hits[0].point;
 
             ray.origin = position + (direction * Epsilon);
-            count = Physics.RaycastNonAlloc(ray, _hits, distance, layerMask, queryTriggerInteraction);
+            count = Physics.RaycastNonAlloc(ray, _hits, distance, layerMasks, queryTriggerInteraction);
 
             if (count <= 0)
                 return direction;

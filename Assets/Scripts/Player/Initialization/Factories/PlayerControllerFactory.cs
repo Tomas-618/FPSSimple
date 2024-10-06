@@ -1,32 +1,40 @@
 ﻿using System;
+using Providers;
 using Calculators;
-using PlayerConfigs;
 using Services;
 
-public class PlayerControllerFactory
+namespace Factories
 {
-    private readonly PlayerView _view;
-    private readonly PlayerConfig _config;
-    private readonly PlayerModelConfig _modelConfig;
-    private readonly MonoBehavioursMethodsService _monoBehavioursMethodsService;
-
-    public PlayerControllerFactory(PlayerView view, PlayerConfig config, PlayerModelConfig modelConfig,
-        MonoBehavioursMethodsService monoBehavioursMethodsService)
+    public class PlayerControllerFactory
     {
-        _view = view != null ? view : throw new ArgumentNullException(nameof(view));
-        _config = config != null ? config : throw new ArgumentNullException(nameof(config));
-        _modelConfig = modelConfig != null ? modelConfig : throw new ArgumentNullException(nameof(modelConfig));
-        _monoBehavioursMethodsService = monoBehavioursMethodsService ??
-            throw new ArgumentNullException(nameof(monoBehavioursMethodsService));
-    }
+        private readonly MovementConfigProvider _provider;
+        private readonly UpdateService _updateService;
+        private readonly DetectionService _detectionService;
+        private readonly RotationCalculator _rotationCalculator;
+        private readonly SpeedCalculator _speedCalculator;
+        private readonly HorizontalMovementCalculator _horizontalMovementCalculator;
+        private readonly VerticalMovementCalculator _verticalMovementCalculator;
 
-    public PlayerController Create()
-    {
-        PlayerModel model = new PlayerModelFactory(_modelConfig).Create();
-        DetectionService detectionService = new DetectionService();
+        public PlayerControllerFactory(MovementConfigProvider provider, UpdateService updateService,
+            DetectionService detectionService, RotationCalculator rotationCalculator, SpeedCalculator speedCalculator,
+            HorizontalMovementCalculator horizontalMovementCalculator, VerticalMovementCalculator verticalMovementCalculator)
+        {
+            _provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
+            _detectionService = detectionService ?? throw new ArgumentNullException(nameof(detectionService));
+            _rotationCalculator = rotationCalculator ?? throw new ArgumentNullException(nameof(rotationCalculator));
+            _speedCalculator = speedCalculator ?? throw new ArgumentNullException(nameof(speedCalculator));
+            _horizontalMovementCalculator = horizontalMovementCalculator
+                ?? throw new ArgumentNullException(nameof(horizontalMovementCalculator));
+            _verticalMovementCalculator = verticalMovementCalculator
+                ?? throw new ArgumentNullException(nameof(verticalMovementCalculator));
+        }
 
-        return new PlayerController(model, _view, new RotationCalculator(), new SpeedCalculator(),
-            new HorizontalMovementCalculator(detectionService), new VerticalMovementCalculator(_config),
-            new RigidbodyPushingCalculator(), _monoBehavioursMethodsService, detectionService);
+        public PlayerController Create(PlayerView view, PlayerModel model)
+        {
+            return new PlayerController(model, view, _provider, _rotationCalculator, _speedCalculator,
+                _horizontalMovementCalculator, _verticalMovementCalculator,
+                _updateService, _detectionService);
+        }
     }
 }

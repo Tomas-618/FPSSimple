@@ -1,0 +1,22 @@
+﻿using System.Threading.Tasks;
+
+namespace Providers
+{
+    public class PlayerViewProvider : ObjectLoaderBase
+    {
+        public PlayerView View { get; private set; }
+
+        public async Task LoadAsync()
+        {
+            string key = "PlayerView";
+
+            View = await LoadBaseAsync<PlayerView>(key);
+        }
+
+        public void Unload()
+        {
+            UnloadBase();
+            View = null;
+        }
+    }
+}
