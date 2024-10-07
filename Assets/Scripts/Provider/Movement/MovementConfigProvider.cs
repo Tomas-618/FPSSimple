@@ -4,7 +4,7 @@ using PlayerConfigs;
 
 namespace Providers
 {
-    public class MovementConfigProvider : ObjectLoaderBase
+    public class MovementConfigProvider : ConfigLoaderBase
     {
         private MovementConfig _config;
 

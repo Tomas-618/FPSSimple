@@ -2,7 +2,7 @@
 
 namespace Providers
 {
-    public class PlayerViewProvider : ObjectLoaderBase
+    public class PlayerViewProvider : PrefabLoaderBase
     {
         public PlayerView View { get; private set; }
 

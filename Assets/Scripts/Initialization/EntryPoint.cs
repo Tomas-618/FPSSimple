@@ -12,7 +12,7 @@ public class EntryPoint : MonoBehaviour
     private UpdateService _updateService;
 
     [Inject]
-    private void Construct(PlayerFactory playerFactory, PlayerModelConfigProvider playerModelProvider,
+    private async void Construct(PlayerFactory playerFactory, PlayerModelConfigProvider playerModelProvider,
         MovementConfigProvider movementProvider, PlayerViewProvider playerViewProvider, UpdateService updateService)
     {
         if (playerModelProvider == null)
@@ -26,7 +26,7 @@ public class EntryPoint : MonoBehaviour
 
         _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
 
-        Task.WaitAll(movementProvider.LoadAsync(), playerModelProvider.LoadAsync(), playerViewProvider.LoadAsync());
+        await Task.WhenAll(movementProvider.LoadAsync(), playerModelProvider.LoadAsync(), playerViewProvider.LoadAsync());
 
         _playerController = playerFactory.Create();
 
@@ -35,8 +35,8 @@ public class EntryPoint : MonoBehaviour
     }
 
     private void Update() =>
-        _updateService?.OnUpdate();
+        _updateService.OnUpdate();
 
     private void LateUpdate() =>
-        _updateService?.OnLateUpdate();
+        _updateService.OnLateUpdate();
 }

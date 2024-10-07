@@ -3,7 +3,7 @@ using PlayerConfigs;
 
 namespace Providers
 {
-    public class PlayerModelConfigProvider : ObjectLoaderBase
+    public class PlayerModelConfigProvider : ConfigLoaderBase
     {
         public PlayerModelConfig Config { get; private set; }
 
