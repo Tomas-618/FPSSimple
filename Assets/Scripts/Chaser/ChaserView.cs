@@ -25,15 +25,6 @@ public class ChaserView : MonoBehaviour
         _rigidbody.velocity = velocity;
     }
 
-    public void MoveVertical(float verticalVelocity)
-    {
-        Vector3 velocity = _rigidbody.velocity;
-
-        velocity.y = verticalVelocity;
-
-        _rigidbody.velocity = velocity;
-    }
-
     public void LookAt(Vector3 direction) =>
         Transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
 }

@@ -24,7 +24,7 @@ namespace Factories
             ChaserModel model = _modelFactory.Create();
             ChaserView view = _viewFactory.Create();
             StateMachine stateMachine = _stateMachineFactory.Create(model, view);
-            ChaserController controller = _controllerFactory.Create(view, model, stateMachine);
+            ChaserController controller = _controllerFactory.Create(model, stateMachine);
 
             return controller;
         }
