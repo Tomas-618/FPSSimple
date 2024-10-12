@@ -1,22 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 
 namespace Providers
 {
-    public class PlayerViewProvider : PrefabLoaderBase
+    public class PlayerViewProvider
     {
         public PlayerView View { get; private set; }
 
-        public async Task LoadAsync()
-        {
-            string key = "PlayerView";
-
-            View = await LoadBaseAsync<PlayerView>(key);
-        }
-
-        public void Unload()
-        {
-            UnloadBase();
-            View = null;
-        }
+        public void Set(PlayerView view) =>
+            View = view != null ? view : throw new ArgumentNullException(nameof(view));
     }
 }

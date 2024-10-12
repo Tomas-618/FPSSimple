@@ -1,25 +1,12 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
-using PlayerConfigs;
+using Configs;
 
 namespace Providers
 {
     public class MovementConfigProvider : ConfigLoaderBase
     {
         private MovementConfig _config;
-
-        public async Task LoadAsync()
-        {
-            string key = "MovementConfig";
-
-            _config = await LoadBaseAsync<MovementConfig>(key);
-        }
-
-        public void Unload()
-        {
-            UnloadBase();
-            _config = null;
-        }
 
         public LayerMask GroundLayer => _config.GroundLayer;
 
@@ -36,5 +23,18 @@ namespace Providers
         public float JumpTimeout => _config.JumpTimeout;
 
         public float TerminalVelocity => _config.TerminalVelocity;
+
+        public async Task LoadAsync()
+        {
+            string key = "MovementConfig";
+
+            _config = await LoadBaseAsync<MovementConfig>(key);
+        }
+
+        public void Unload()
+        {
+            UnloadBase();
+            _config = null;
+        }
     }
 }

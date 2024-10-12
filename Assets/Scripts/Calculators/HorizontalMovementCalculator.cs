@@ -16,8 +16,6 @@ namespace Calculators
         {
             Vector3 direction = transform.TransformDirection(inputDirection);
 
-            Debug.DrawRay(transform.position, direction, Color.blue);
-
             return Time.deltaTime * speed *
                 _detectionService.GetDirectionAlongSurface(legsPosition, direction, checkerDistance, layerMasks);
         }

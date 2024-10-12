@@ -17,6 +17,21 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 10586f6eab01bb74cb3e1af2b9622fea
   m_SerializeEntries:
+  - m_GUID: 1add2b0926c9c9c428703a72126383af
+    m_Address: PlayerFollowCamera
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2495a42671719a245b8852067dbe9fd1
+    m_Address: ChaserView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 592bf84a6983d8244869a4dedbaae111
+    m_Address: MainCamera
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e50abe62d9c4c1847acead799a888a2e
     m_Address: PlayerView
     m_ReadOnly: 0

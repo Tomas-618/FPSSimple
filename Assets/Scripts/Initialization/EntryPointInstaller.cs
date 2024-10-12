@@ -12,8 +12,37 @@ public class EntryPointInstaller : MonoInstaller
         BindServices();
         BindCalculators();
 
+        BindMainCameraFactory();
         BindPlayerFactory();
+        BindPlayerFollowCameraFactory();
+
+        BindChaserFactory();
     }
+
+    private void BindChaserFactory()
+    {
+        BindChaserModelFactory();
+        BindChaserViewFactory();
+        BindChaserStateMachineFactory();
+        BindChaserControllerFactory();
+
+        Container.Bind<ChaserFactory>().AsSingle();
+    }
+
+    private void BindChaserModelFactory() =>
+        Container.Bind<ChaserModelFactory>().AsSingle();
+
+    private void BindChaserViewFactory() =>
+        Container.Bind<ChaserViewFactory>().AsSingle();
+
+    private void BindChaserStateMachineFactory() =>
+        Container.Bind<ChaserStateMachineFactory>().AsSingle();
+
+    private void BindChaserControllerFactory() =>
+        Container.Bind<ChaserControllerFactory>().AsSingle();
+
+    private void BindMainCameraFactory() =>
+        Container.Bind<MainCameraFactory>().AsSingle();
 
     private void BindPlayerFactory()
     {
@@ -24,6 +53,9 @@ public class EntryPointInstaller : MonoInstaller
 
         Container.Bind<PlayerFactory>().AsSingle();
     }
+
+    private void BindPlayerFollowCameraFactory() =>
+        Container.Bind<PlayerFollowCameraFactory>().AsSingle();
 
     private void BindPlayerModelFactory() =>
         Container.Bind<PlayerModelFactory>().AsSingle();
@@ -41,6 +73,7 @@ public class EntryPointInstaller : MonoInstaller
     {
         Container.Bind<UpdateService>().AsSingle();
         Container.Bind<DetectionService>().AsSingle();
+        Container.Bind<TargetOperationsService>().AsSingle();
     }
 
     private void BindCalculators()
@@ -54,8 +87,15 @@ public class EntryPointInstaller : MonoInstaller
 
     private void BindProviders()
     {
+        Container.Bind<MainCameraProvider>().AsSingle();
+        Container.Bind<PlayerFollowCameraProvider>().AsSingle();
+        Container.Bind<CameraTargetProvider>().AsSingle();
         Container.Bind<PlayerModelConfigProvider>().AsSingle();
+        Container.Bind<PlayerViewPrefabProvider>().AsSingle();
         Container.Bind<PlayerViewProvider>().AsSingle();
         Container.Bind<MovementConfigProvider>().AsSingle();
+        Container.Bind<BotsConfigProvider>().AsSingle();
+        Container.Bind<ChaserModelConfigProvider>().AsSingle();
+        Container.Bind<ChaserViewPrefabProvider>().AsSingle();
     }
 }

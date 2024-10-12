@@ -22,6 +22,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 504bb7e34e740a94089810cad3db5edc
+    m_Address: BotsConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71c906eb95549684e8a320999ed453d9
+    m_Address: ChaserModelConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 81fe1db8845d38548b4089a10e3b6a08
     m_Address: MovementConfig
     m_ReadOnly: 0

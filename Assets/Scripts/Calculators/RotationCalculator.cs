@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using Utils;
 
 namespace Calculators
 {
     public class RotationCalculator
     {
+        private const float MaxAngle = 360f;
         private const float Threshold = 0.001f;
 
         public void SetRotation(ref float pitch, out float yaw,
@@ -18,7 +18,18 @@ namespace Calculators
             pitch += rotation.y * sensitivity;
             yaw = rotation.x * sensitivity;
 
-            pitch = MathUtils.ClampAngle(pitch, minAngle, maxAngle);
+            pitch = ClampAngle(pitch, minAngle, maxAngle);
+        }
+
+        private float ClampAngle(float angle, float min, float max)
+        {
+            if (angle < -MaxAngle)
+                angle += MaxAngle;
+
+            if (angle > MaxAngle)
+                angle -= MaxAngle;
+
+            return Mathf.Clamp(angle, min, max);
         }
     }
 }

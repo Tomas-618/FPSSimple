@@ -8,8 +8,6 @@ using CallbackContext = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 public class PlayerController
 {
-    public delegate void VerticalVelocityChanger(ref float verticalVelocity);
-
     private readonly Dictionary<bool, VerticalVelocityChanger> _strategies;
     private readonly Dictionary<bool, VerticalVelocityChanger> _inAirStrategies;
     private readonly Dictionary<bool, VerticalVelocityChanger> _jumpStrategies;
@@ -198,3 +196,5 @@ public class PlayerController
         };
     }
 }
+
+public delegate void VerticalVelocityChanger(ref float verticalVelocity);
